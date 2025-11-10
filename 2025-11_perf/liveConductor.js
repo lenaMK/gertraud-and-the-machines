@@ -1,11 +1,11 @@
 
 /*
-    title: live conductor script
-    author: LenaMK 
+    title: live conductor script for Gertraud & the machines
+    author: Lena MK et William Diakite
     date: 2025-11
     description:
-        - VJ conductor based on MAPP 2024 experience
-        - standard keyboard
+        - set up p5 and p5.sound
+        - VJing style conductor based on MAPP 2024 experience: standard keyboard inputs
 
 */
 
