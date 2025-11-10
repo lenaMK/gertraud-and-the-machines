@@ -16,7 +16,7 @@ Pour cette deuxième itération, nous aimerions explorer l’enjeu de présenter
 
 <img src="./img/carteUdeM.png" style="width:75%;" alt=" numérisation d'une carte perforée du centre de calcul de l'Université de Montréal "/>
 
-<img src="./img/IMG_20240215_182410.jpg" alt="þ" style="width: 50%;" alt=" photographie de l'envers d'un disque de la boîte à musique " />
+<img src="./img/disque-renverse.jpgIMG_20240215_182410.jpg" alt="þ" style="width: 50%;" alt=" photographie de l'envers d'un disque de la boîte à musique " />
 
 <div style="page-break-after: always;"></div>
 
