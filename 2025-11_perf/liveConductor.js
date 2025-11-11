@@ -11,7 +11,7 @@
 
 var backgroundAlpha
 
-var mic, vol, spectrum, fft, bandW, sound
+var mic, vol, spectrum, fft, bandW, sound, scene
 var nbBands = 128
 
 var xoff = 0
@@ -29,6 +29,8 @@ var pageMargin = 100
 
 
 function setup() { 
+    console.log("Gertraud & the machines, " + new Date(Date.now()))
+
     colorMode(HSB, 360, 100, 100, 250);
     createCanvas(windowWidth, windowHeight); 
     angleMode(DEGREES)
@@ -69,156 +71,60 @@ function keyPressed() {
         //close curtains to black
         setupToBlack()
         scene = 0
+        console.log("Screen to black, " + new Date(Date.now()))
+        
     }
     else if (key === '1'){     
-        //float circle
-        // c for color change
-        // p for speed+
-        // m for speed-
-        setupCircleFloat()
+        // view
+       
+        setupJumpyPunchCard()
         scene = 1 
+
+        console.log("Jummpy punch cards," + new Date(Date.now()))
     }
-    else if (key === '2'){   
-        //float trailing circle
-        // c for color change
-        // p for speed+ (jumpy trail or r to refresh)
-        // m for speed- (jumpy trail or r to refresh)
-        stroke(99, 200, 100) 
-        background('black')
+    else if (key === '2'){     
+        // view
+       
+        setupSpectrumLines()
         scene = 2 
-    }
-    else if (key === '3') {
-        // boucy color 16 lines
-        // arrows
-        // ← twist to right
-        // → rotate on axis
-        // ↓ reverse horizontally
-        setupLines(spectrum);
-        scene = 3 
-    }
-    else if (key === '4') {
-        // vertical strips
-        // arrows 
-        // ← sharp diagonal (parallelogram)
-        // → bottom left corner
-        // ↓
-        setUpVStrips(spectrum)
-        
-        scene = 4 
-    }
-    else if (key === '5') {
-        // building stairs
-        // arrows 
-        // ← toward top left coner
-        // → 90° from left to right
-        // ↓ reverse (top down)
-        setupStairs()
-        scene = 5 
-    }
-    else if (key === '6') {
-        //setupRoom()
-        background('black')
-        scene = 6 
-    }
-    else if (key === '7') {
-        //setupCredits()
-        scene = 7 
-    }
-    else if (key === '8') {
-        //setup ()
-        scene = 8
-    } 
-    else if (key === '9') {
-        //Credits in color
-        setupCredits()
-        scene = 10
-    }  
-    else if (key === 's') {
-        //(start) credits in black and white 
-        setupCredits()
-        scene = 9 
-    }
 
-    if (key === 'b') {
-        bisou = !bisou
-        if (bisou == false){
-            background(0o0);
-            
-        } else {
-            bisouFontSize = 500
-            bisouFrame = frameCount
-        }
+        console.log("Spectrum lines, " + new Date(Date.now()))
     }
+    
+   
 
 
-
-    if (key === 'r') {
-        background(0o0);
+    if (key === 'm'){
+        console.log("Spectrum lines, move line focus")
+        moveLineFocus = true
+    } else if (key === 'n'){
+        moveLineFocus = false 
+        console.log("Spectrum lines, static line focus")       
     }
 
-
-    if (key === 'p') {
-        if (speed < maxSpeed)
-            speed = speed + 0.001
-        else 
-            speed = maxSpeed
-        console.log(speed)
-    }
-    if (key === 'm') {
-        if (speed > minSpeed)
-            speed = speed - 0.001
-        else   
-            speed = minSpeed
-
-        console.log(speed)
-    }
-        
 }
 
 
 
 function draw() {
+    
+    background(0o0)
 
     spectrum = fft.analyze();
     
     if (scene == 0){
         drawToBlack()
+        
     }else if (scene == 1){
-        alpha = false
-        drawCircleFloat(spectrum, alpha, speed)
         
-    } else if (scene == 2){
-        alpha = true        
-        drawCircleFloat(spectrum, alpha, speed)
-    } else if (scene == 3){
-        drawLines(spectrum);
-    } else if (scene == 4){
-        drawVStrips(spectrum)  
-    } else if (scene == 5){
-        drawStairs() 
-    } else if (scene == 6){
-        //drawRoom(spectrum)  
-    } else if (scene == 9){
-        var colorful = false
-        drawCredits(spectrum, colorful)
-    } 
-    else if (scene == 10){
-        var colorful = true
-        drawCredits(spectrum, colorful)
-        
+        drawJumpyPunchCard(spectrum, nbBands)
     }
+    else if (scene == 2){
+        
+        drawSpectrumLines(spectrum, nbBands, moveLineFocus)
+    }
+    
 
-    if (bisou == true){
-        var time = frameCount-bisouFrame
-        bisouFontSize -= time*3
-        
-        if (bisouFontSize < 5){
-            bisou = false
-            background(0o0);
-        }else
-         faitBisou()
-    }
-  
 }
 
 
