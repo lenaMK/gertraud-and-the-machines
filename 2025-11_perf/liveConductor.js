@@ -25,10 +25,13 @@ var spectrumHistory = []
 var shapes = []
 var playing
 
+var tapisser 
+
 var pageMargin = 100
 
 
 function setup() { 
+    
     console.log("Gertraud & the machines, " + new Date(Date.now()))
 
     colorMode(HSB, 360, 100, 100, 250);
@@ -56,6 +59,9 @@ function setup() {
     focusY = pageMargin
     centralFocus = false
     moveLineFocus = false
+    tapisser = false
+
+    scene = 1
 } 
 
 
@@ -84,15 +90,28 @@ function keyPressed() {
     }
     else if (key === '2'){     
         // view
+        // m for moving line focus
+        // n for static line focus
        
         setupSpectrumLines()
         scene = 2 
 
         console.log("Spectrum lines, " + new Date(Date.now()))
     }
-    
-   
+    else if (key === '3'){     
+        // view
+       
+        setupPaperCrumbles()
+        scene = 3
 
+        console.log("Paper crumbles, " + new Date(Date.now()))
+    }
+    else if (key === '4'){
+
+        setupMovingPaperCrumbles()
+        scene = 4
+    }
+   
 
     if (key === 'm'){
         console.log("Spectrum lines, move line focus")
@@ -102,13 +121,23 @@ function keyPressed() {
         console.log("Spectrum lines, static line focus")       
     }
 
+
+    if (key === 't'){
+        tapisser = true
+        console.log("Paper crumbles, piling up")
+    }
+    else if (key === 'r'){
+          tapisser = false
+        console.log("Paper crumbles, fading")
+    }
+
 }
 
 
 
 function draw() {
     
-    background(0o0)
+    
 
     spectrum = fft.analyze();
     
@@ -122,6 +151,12 @@ function draw() {
     else if (scene == 2){
         
         drawSpectrumLines(spectrum, nbBands, moveLineFocus)
+    }
+  else if (scene == 3){
+        drawPaperCrumbles(spectrum, nbBands, tapisser)  
+    }
+    else if (scene == 4){
+        drawMovingPaperCrumbles(spectrum, nbBands)
     }
     
 

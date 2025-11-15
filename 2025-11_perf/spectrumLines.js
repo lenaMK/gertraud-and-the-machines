@@ -1,9 +1,11 @@
 function setupSpectrumLines(){
-    
+    background(0o0)
+     frameRate(60)
 }
 
 
 function drawSpectrumLines(spectrum, nbBands, moveLineFocus){
+    background(0o0)
     var selection = 4
     var margin = 10
 

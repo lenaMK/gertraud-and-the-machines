@@ -3,9 +3,10 @@ var time
 var closeSpeed
 function setupToBlack(){
     //frame count when to black is called
-    time = frameCount 
+    time = frameCount
+    frameRate(60)
     rectMode(CORNER)
-    closeSpeed = 8
+    closeSpeed = 2
 }
 
 function drawToBlack(){
