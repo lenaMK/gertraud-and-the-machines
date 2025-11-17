@@ -109,7 +109,13 @@ function keyPressed() {
     else if (key === '4'){
 
         setupMovingPaperCrumbles()
+        console.log("Moving paper crumbles, " + new Date(Date.now()))
         scene = 4
+    }
+    else if (key === '5'){
+        setupPerforatedScore()
+        console.log("perforated Score, " + new Date(Date.now()))
+        scene = 5
     }
    
 
@@ -158,7 +164,9 @@ function draw() {
     else if (scene == 4){
         drawMovingPaperCrumbles(spectrum, nbBands)
     }
-    
+    else if (scene == 5){
+        drawPerforatedScore(spectrum, nbBands)
+    }
 
 }
 
