@@ -1,22 +1,34 @@
 var hist
 
 function setupPerforatedScore(){
-
+    frameRate(60)
     background(0,0,0)
     fill(0, 0, 100, 150)
 
     hist = []
 }
 
-function drawPerforatedScore(spectrum, nbBands){
-    var highestValue = Math.max()
-    var indexOfHV = spectrum.indexOf(highestValue)
-    console.log(highestValue)
+function getHighValues(spectrum){
+    var highs = []
 
-    if (hist.length > nbBands) 
+    for (var j = 0; j < spectrum.length; j++){
+        if (spectrum[j] > 30)
+            highs.push([spectrum[j], j])
+
+    }
+    return highs
+}
+
+function drawPerforatedScore(spectrum, nbBands){
+    background(0o0)
+    var highestValues = getHighValues(spectrum)
+    
+    console.log(highestValues)
+
+    if (hist.length >= nbBands) 
         hist.splice(0, 1)
     
-    hist.push(highestValue)
+    hist.push(highestValues)
 
     console.log(hist)
 
@@ -25,19 +37,29 @@ function drawPerforatedScore(spectrum, nbBands){
         //console.log("height", windowHeight/spectrum.length * i)
         //console.log("width", windowWidth/nbBands)
         var xStep = windowWidth/nbBands
-        var yStep = windowHeight/spectrum.length
         
-        var x = windowWidth - (xStep * i)
-        var y = windowHeight - ( yStep * hist[i])
-
+ 
         var rectWidth = windowWidth/spectrum.length/2
         var rectHeight = windowHeight/nbBands/2
+        var x = windowWidth - (xStep * (hist.length - i))
+        
+
+        hist[i].forEach(h => {
+            var color = map(h[0], 0, 255, 0, 100)
+            fill(0, 0, color)
+
+                            
+            var y = map(h[1], 0, 128, 10, windowHeight-10)
+            rect(x, y, rectWidth, rectHeight )
+
+        });
+
 
         //console.log(`${x}, ${y}, ${rectWidth}, ${            rectHeight}`)
-        fill(0, 0, 20, 150)
+       
 
 
-        rect(x, y, rectWidth, rectHeight )
+        
     }
         
         
