@@ -117,6 +117,11 @@ function keyPressed() {
         console.log("perforated Score, " + new Date(Date.now()))
         scene = 5
     }
+    else if (key === '6'){
+        setupPerforatedScore()
+        console.log(" VM perforated Score, " + new Date(Date.now()))
+        scene = 6
+    }
    
 
     if (key === 'm'){
@@ -167,6 +172,10 @@ function draw() {
     else if (scene == 5){
         drawPerforatedScore(spectrum, nbBands)
     }
+    else if (scene == 6){
+        drawVMPerforatedScore(spectrum, nbBands)
+    }
+    
 
 }
 
