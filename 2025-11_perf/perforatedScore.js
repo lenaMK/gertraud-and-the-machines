@@ -3,17 +3,17 @@ var scoreLength = 30
 var randomIntensity = 2
 
 function setupPerforatedScore(){
-    frameRate(30)
+    frameRate(10)
     background(0,0,0)
     fill(0, 0, 100, 150)
-
+    angleMode(DEGREES);
     hist = []
 }
 
-function getHighValues(spectrum){
+function getHighValues(spectrum, step){
     var highs = []
 
-    for (var j = 0; j < spectrum.length; j+=5){
+    for (var j = 0; j < spectrum.length; j+=step){
         if (spectrum[j] > 30)
             highs.push([spectrum[j], j])
 
@@ -21,49 +21,11 @@ function getHighValues(spectrum){
     return highs
 }
 
-function drawPerforatedScore(spectrum, nbBands){
+function drawPerforatedScore(spectrum){
     background(0o0)
-    var highestValues = getHighValues(spectrum)
+    var highestValues = getHighValues(spectrum, 5)
     
-    console.log(highestValues)
-
-    if (hist.length >= scoreLength) 
-        hist.splice(0, 1)
     
-    hist.push(highestValues)
-
-    console.log(hist)
-
-
-    for (var i = 0; i < hist.length; i++){
-        //console.log("height", windowHeight/spectrum.length * i)
-        //console.log("width", windowWidth/nbBands)
-        var xStep = windowWidth/scoreLength
-        
-        
-        var rectWidth = windowWidth/scoreLength - 30
-        var rectHeight = 30
-        var x = xStep * (hist.length - i)
-        
-
-        hist[i].forEach(h => {
-            var color = map(h[0], 0, 255, 20, 100)
-            stroke(0, 0, color)
-            fill(0, 0, 0)
-            var y = map(h[1], 0, 128, windowHeight-50, 10)
-            rect(x, y, rectWidth, rectHeight )
-
-        })
-    }
-
-}
-
-
-
-function drawVMPerforatedScore(spectrum, nbBands){
-    background(0o0)
-    var highestValues = getHighValues(spectrum)
-
 
     if (hist.length >= scoreLength) 
         hist.splice(0, 1)
@@ -85,6 +47,42 @@ function drawVMPerforatedScore(spectrum, nbBands){
 
         hist[i].forEach(h => {
             var color = map(h[0], 0, 255, 0, 100)
+            stroke(0, 0, color)
+            fill(0, 0, 0)
+            var y = map(h[1], 0, 128, windowHeight-50, 10)
+            rect(x, y, rectWidth, rectHeight )
+
+        })
+    }
+
+}
+
+
+
+function drawVMPerforatedScore(spectrum){
+    background(0o0)
+    var highestValues = getHighValues(spectrum, 5)
+
+
+    if (hist.length >= scoreLength) 
+        hist.splice(0, 1)
+    
+    hist.push(highestValues)
+
+
+
+    for (var i = 0; i < hist.length; i++){
+        var xStep = windowWidth/scoreLength
+        
+        
+        var rectWidth = windowWidth/scoreLength - 30
+        var rectHeight = 30
+        var x = xStep * (hist.length - i)
+        
+
+        hist[i].forEach(h => {
+            var color = map(h[0], 0, 255, 0, 100)
+            strokeWeight(3)
             stroke(0, 0, color)
             fill(0, 0, 0)
             var y = map(h[1], 0, 128, windowHeight-50, 10)
@@ -110,3 +108,69 @@ function drawVMPerforatedScore(spectrum, nbBands){
 
 }
 
+
+function drawVMPerforatedDisc(spectrum){
+    background(0o0)
+
+    var discDensity = 4
+    var discMargins = windowHeight/10
+    var discRadius = (windowHeight-discMargins) / 2 
+    var discWritingRadius = discRadius - discMargins
+
+    var notes = 32
+    var perforation = discWritingRadius / notes - 4
+
+    //start from the center of the screen
+    translate(windowWidth/2, windowHeight/2)  
+
+    fill(0, 0, 30)
+    circle(0, 0, discRadius * 2)
+    fill(0, 0, 0)
+    circle(0, 0, discMargins * 2)
+
+    if (hist.length >= (360/discDensity)) 
+        hist.splice(0, 1)
+
+    var inscriptionStep = 4
+    var currentSpectrum = []
+    for (var i = 0; i < spectrum.length/inscriptionStep; i++){
+        currentSpectrum.push(spectrum[i*inscriptionStep])
+    }
+
+    hist.push(getHighValues(currentSpectrum, 1))
+    console.log(hist)
+
+    // for each element in the history (ex 360 / discDensity = 90)
+    for (var i = 0; i < hist.length; i++){
+        rotate(-discDensity)
+        //for each high value amongst the 32 "notes"
+        hist[i].forEach(h => {
+            
+            //var color = map(h[0], 0, 255, 0, 100)
+            //strokeWeight(3)
+            //stroke(0, 0, color)
+            fill(0, 0, 0)
+            
+            var x = discMargins + discWritingRadius/notes * h[1]
+            var y = 0
+            
+
+            beginShape()
+                
+                vertex(x + random(-randomIntensity, randomIntensity), y + random(-randomIntensity, randomIntensity))
+
+                vertex(x +perforation + random(-randomIntensity, randomIntensity), y + random(-randomIntensity, randomIntensity))
+                
+                vertex(x +perforation + random(-randomIntensity, randomIntensity), y + perforation + random(-randomIntensity, randomIntensity))
+
+                vertex(x + random(-randomIntensity, randomIntensity), y + perforation + random(-randomIntensity, randomIntensity))
+                
+                vertex(x + random(-randomIntensity, randomIntensity), y + random(-randomIntensity, randomIntensity))
+                
+
+            endShape()
+
+        })
+    }
+
+}

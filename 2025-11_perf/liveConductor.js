@@ -122,6 +122,11 @@ function keyPressed() {
         console.log(" VM perforated Score, " + new Date(Date.now()))
         scene = 6
     }
+    else if (key === '7'){
+        setupPerforatedScore()
+        console.log(" VM perforated disc, " + new Date(Date.now()))
+        scene = 7
+    }
    
 
     if (key === 'm'){
@@ -170,10 +175,13 @@ function draw() {
         drawMovingPaperCrumbles(spectrum, nbBands)
     }
     else if (scene == 5){
-        drawPerforatedScore(spectrum, nbBands)
+        drawPerforatedScore(spectrum)
     }
     else if (scene == 6){
-        drawVMPerforatedScore(spectrum, nbBands)
+        drawVMPerforatedScore(spectrum)
+    }
+    else if (scene == 7){
+        drawVMPerforatedDisc(spectrum)
     }
     
 
