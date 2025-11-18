@@ -147,6 +147,12 @@ function keyPressed() {
         console.log("Paper crumbles, fading")
     }
 
+    if (key === 'd'){
+        
+        displayDoc()
+        console.log("display documentation of keyboard actions")
+    }
+
 }
 
 
