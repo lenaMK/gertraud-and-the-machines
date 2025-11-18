@@ -1,6 +1,6 @@
 var hist
 var scoreLength = 30
-var randomIntensity = 2
+var randomIntensity
 
 function setupPerforatedScore(){
     frameRate(10)
@@ -62,7 +62,7 @@ function drawPerforatedScore(spectrum){
 function drawVMPerforatedScore(spectrum){
     background(0o0)
     var highestValues = getHighValues(spectrum, 5)
-
+    randomIntensity = 2
 
     if (hist.length >= scoreLength) 
         hist.splice(0, 1)
@@ -111,22 +111,16 @@ function drawVMPerforatedScore(spectrum){
 
 function drawVMPerforatedDisc(spectrum){
     background(0o0)
-
-    var discDensity = 4
+    randomIntensity = 1
+ 
+    var discDensity = 6
     var discMargins = windowHeight/10
     var discRadius = (windowHeight-discMargins) / 2 
-    var discWritingRadius = discRadius - discMargins
 
+    var discInnerMargin = 10
+    var discWritingRadius = discRadius - discInnerMargin*2
     var notes = 32
-    var perforation = discWritingRadius / notes - 4
-
-    //start from the center of the screen
-    translate(windowWidth/2, windowHeight/2)  
-
-    fill(0, 0, 30)
-    circle(0, 0, discRadius * 2)
-    fill(0, 0, 0)
-    circle(0, 0, discMargins * 2)
+    var perforation = discWritingRadius / notes - 6
 
     if (hist.length >= (360/discDensity)) 
         hist.splice(0, 1)
@@ -136,41 +130,62 @@ function drawVMPerforatedDisc(spectrum){
     for (var i = 0; i < spectrum.length/inscriptionStep; i++){
         currentSpectrum.push(spectrum[i*inscriptionStep])
     }
+    
 
     hist.push(getHighValues(currentSpectrum, 1))
-    console.log(hist)
+
+
+    //start from the center of the screen
+    translate(windowWidth/2, windowHeight/2)  
+
+    fill(0, 0, 30)
+    circle(0, 0, discRadius * 2 + 10)
+    fill(0, 0, 0)
+    circle(0, 0, discMargins * 2)
+
+    stroke(0, 0, 20)
+    strokeWeight(6)
+
+    rotate(-1)
+    line(discMargins + discInnerMargin, 0, discRadius, 0)
+    rotate(1)
 
     // for each element in the history (ex 360 / discDensity = 90)
-    for (var i = 0; i < hist.length; i++){
-        rotate(-discDensity)
+    for (var i = 0; i < 360/discDensity ; i++){
+        noStroke()
         //for each high value amongst the 32 "notes"
-        hist[i].forEach(h => {
+        if (hist[hist.length - i]){
+            hist[hist.length - i].forEach(h => {
             
-            //var color = map(h[0], 0, 255, 0, 100)
-            //strokeWeight(3)
-            //stroke(0, 0, color)
-            fill(0, 0, 0)
-            
-            var x = discMargins + discWritingRadius/notes * h[1]
-            var y = 0
-            
-
-            beginShape()
+                //var color = map(h[0], 0, 255, 0, 100)
+                //strokeWeight(1)
+                //stroke(0, 0, 100)
+                fill(0, 0, 0)
                 
-                vertex(x + random(-randomIntensity, randomIntensity), y + random(-randomIntensity, randomIntensity))
-
-                vertex(x +perforation + random(-randomIntensity, randomIntensity), y + random(-randomIntensity, randomIntensity))
-                
-                vertex(x +perforation + random(-randomIntensity, randomIntensity), y + perforation + random(-randomIntensity, randomIntensity))
-
-                vertex(x + random(-randomIntensity, randomIntensity), y + perforation + random(-randomIntensity, randomIntensity))
-                
-                vertex(x + random(-randomIntensity, randomIntensity), y + random(-randomIntensity, randomIntensity))
+                var x = discMargins + (perforation + 6) * h[1] + discInnerMargin
+                var y = 0
                 
 
-            endShape()
+                beginShape()
+                    
+                    vertex(x + random(-randomIntensity, randomIntensity), y + random(-randomIntensity, randomIntensity))
 
-        })
+                    vertex(x + perforation + random(-randomIntensity, randomIntensity), y + random(-randomIntensity, randomIntensity))
+                    
+                    vertex(x +perforation + random(-randomIntensity, randomIntensity), y + perforation + random(-randomIntensity, randomIntensity))
+
+                    vertex(x + random(-randomIntensity, randomIntensity), y + perforation + random(-randomIntensity, randomIntensity))
+                    
+                    vertex(x + random(-randomIntensity, randomIntensity), y + random(-randomIntensity, randomIntensity))
+                    
+
+                endShape()
+                
+            })
+
+            rotate(discDensity)
+        }
+        
     }
 
 }
