@@ -115,12 +115,12 @@ function keyPressed() {
     }
     else if (key === '5'){
         setupPerforatedScore()
-        console.log(" VM perforated Score, " + new Date(Date.now()))
+        console.log(" VM wild perforated Score, " + new Date(Date.now()))
         scene = 5
     }
     else if (key === '6'){
-        setupPerforatedScore()
-        console.log(" VM perforated disc, " + new Date(Date.now()))
+        setupPerforatedDisc()
+        console.log(" Perforated disc, " + new Date(Date.now()))
         scene = 6
     }
    
@@ -182,7 +182,7 @@ function draw() {
         drawVMPerforatedScore(spectrum)
     }
     else if (scene == 6){
-        drawVMPerforatedDisc(spectrum)
+        drawPerforatedDisc(spectrum)
     }
     
 
