@@ -25,7 +25,7 @@ var spectrumHistory = []
 var shapes = []
 var playing
 
-var tapisser 
+var tapisser, debutDeLaFin 
 
 var pageMargin = 100
 
@@ -60,9 +60,10 @@ function setup() {
     centralFocus = false
     moveLineFocus = false
     tapisser = false
-
+    effacer = false
     scene = 1
-     setupJumpyPunchCard()
+    setupPerforatedDisc()
+    debutDeLaFin = 0
 } 
 
 
@@ -80,48 +81,48 @@ function keyPressed() {
         scene = 0
         console.log("Screen to black, " + new Date(Date.now()))
         
-    }
-    else if (key === '1'){     
-        // view
-       
-        setupJumpyPunchCard()
-        scene = 1 
+    }   
+    else if (key === '1'){
+        setupPerforatedDisc()
+        console.log(" Perforated disc, " + new Date(Date.now()))
+        scene = 1
+    }    
+    else if (key === '2'){
 
-        console.log("Jummpy punch cards," + new Date(Date.now()))
-    }
-    else if (key === '2'){     
+        setupMovingPaperCrumbles()
+        console.log("Moving paper crumbles, " + new Date(Date.now()))
+        scene = 2
+    }   
+    else if (key === '3'){     
         // view
         // m for moving line focus
         // n for static line focus
        
         setupSpectrumLines()
-        scene = 2 
+        scene = 3 
 
         console.log("Spectrum lines, " + new Date(Date.now()))
+    } 
+    else if (key === '4'){
+        setupPerforatedScore()
+        console.log(" VM wild perforated Score, " + new Date(Date.now()))
+        scene = 4
     }
-    else if (key === '3'){     
+    else if (key === '5'){     
+        // view
+       
+        setupJumpyPunchCard()
+        scene = 5 
+
+        console.log("Jummpy punch cards," + new Date(Date.now()))
+    }
+    else if (key === '6'){     
         // view
        
         setupPaperCrumbles()
-        scene = 3
+        scene = 6
 
         console.log("Paper crumbles, " + new Date(Date.now()))
-    }
-    else if (key === '4'){
-
-        setupMovingPaperCrumbles()
-        console.log("Moving paper crumbles, " + new Date(Date.now()))
-        scene = 4
-    }
-    else if (key === '5'){
-        setupPerforatedScore()
-        console.log(" VM wild perforated Score, " + new Date(Date.now()))
-        scene = 5
-    }
-    else if (key === '6'){
-        setupPerforatedDisc()
-        console.log(" Perforated disc, " + new Date(Date.now()))
-        scene = 6
     }
    
 
@@ -134,13 +135,11 @@ function keyPressed() {
     }
 
 
-    if (key === 't'){
-        tapisser = true
-        console.log("Paper crumbles, piling up")
-    }
-    else if (key === 'r'){
-          tapisser = false
-        console.log("Paper crumbles, fading")
+    if (key === 's'){
+        console.log("Début de la fin, fade out pour scene 4")
+        debutDeLaFin = frameCount
+
+        console.log("remember to save console output :) ")
     }
 
     if (key === 'd'){
@@ -165,24 +164,27 @@ function draw() {
         drawToBlack()
         
     }else if (scene == 1){
+        drawPerforatedDisc(spectrum)
         
-        drawJumpyPunchCard(spectrum, nbBands)
     }
     else if (scene == 2){
-        
-        drawSpectrumLines(spectrum, nbBands, moveLineFocus)
+        drawMovingPaperCrumbles(spectrum, nbBands)
+       
     }
   else if (scene == 3){
-        drawPaperCrumbles(spectrum, nbBands, tapisser)  
+        drawSpectrumLines(spectrum, nbBands, moveLineFocus)
+        
     }
     else if (scene == 4){
-        drawMovingPaperCrumbles(spectrum, nbBands)
+        drawVMPerforatedScore(spectrum, debutDeLaFin)
+        
     }
     else if (scene == 5){
-        drawVMPerforatedScore(spectrum)
+        drawJumpyPunchCard(spectrum, nbBands)
+       
     }
     else if (scene == 6){
-        drawPerforatedDisc(spectrum)
+         drawPaperCrumbles(spectrum, nbBands, tapisser) 
     }
     
 

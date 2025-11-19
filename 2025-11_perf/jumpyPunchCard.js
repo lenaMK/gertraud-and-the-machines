@@ -1,5 +1,6 @@
 
 var spectrumRandom 
+var angle
 
 
 
@@ -7,7 +8,7 @@ function setupJumpyPunchCard(){
     background(0o0)
     frameRate(60)
     noStroke()
-    fill(0, 0, 100, 150)  
+    fill(0, 0, 100)  
 
     spectrumRandom  = []
 
@@ -15,6 +16,7 @@ function setupJumpyPunchCard(){
         spectrumRandom.push(random(-30, 123))
     }
 
+    angle = 0
     
     
 }
@@ -46,19 +48,34 @@ function drawJumpyPunchCard(spectrum, nbBands){
         
     }
 
+    push()
+        rotate(angle)
 
-    noStroke()
-    rotate(30)
-    fill(0, 0, 100)
+        noStroke()
+        rotate(30)
+        fill(0, 0, 100)
 
-    rect(windowWidth/7*3, -windowHeight/2, 150, windowHeight)
+        rect(windowWidth/7*3, -windowHeight/2, 150, windowHeight)
 
-    rotate(-40)
+          
 
-    rect(windowWidth/3*2, 110, 420, windowWidth)    
+    pop()
 
+    push()
+        rotate(-angle)
+
+        noStroke()
+        fill(0, 0, 100)
+        rotate(-90)
+
+        rect(windowWidth/3, 110, 420, windowWidth)  
+    pop()
 
     
-
+    if (angle == 360){
+        angle =0
+    } else {
+        angle+= 0.5
+    }
 
 }

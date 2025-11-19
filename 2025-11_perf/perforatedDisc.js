@@ -107,11 +107,11 @@ function drawPerforatedDisc(spectrum){
          
 
         var alphalevel = map(count, 0, reveal, 255, 0)
-        console.log(alphalevel)
+        
         fill(0, 0, 0, alphalevel)
         rect(-windowWidth/2, - windowHeight/2, windowWidth*2, windowHeight*2)
 
-        console.log("fading")
+        console.log("fading in for "+reveal)
 
     }
     else if (count == reveal){

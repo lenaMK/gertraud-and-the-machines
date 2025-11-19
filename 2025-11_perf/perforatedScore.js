@@ -1,6 +1,7 @@
 var hist
 var scoreLength = 30
 var randomIntensity
+var countDown = 120
 
 function setupPerforatedScore(){
     frameRate(10)
@@ -8,6 +9,9 @@ function setupPerforatedScore(){
     fill(0, 0, 100, 150)
     angleMode(DEGREES);
     hist = []
+    strokeWeight(2)
+    stroke(0, 0, 100)
+    fill(0, 0, 0)
 }
 
 function getHighValues(spectrum, step){
@@ -45,9 +49,7 @@ function drawVMPerforatedScore(spectrum){
         hist[i].forEach(h => {
             var rectWidth = windowWidth/scoreLength - 30 + random(0, 100)
             var rectHeight = map(h[0], 0, 255, 0, 500) + random(0, 10)
-            strokeWeight(2)
-            stroke(0, 0, 100)
-            fill(0, 0, 0)
+            
             var y = map(h[1], 0, 128, 10,windowHeight)
             //rect(x, y, rectWidth, rectHeight )
 
@@ -68,5 +70,15 @@ function drawVMPerforatedScore(spectrum){
 
         })
     }
+
+   if (debutDeLaFin > 0){
+
+       var diff = (debutDeLaFin + countDown) - frameCount
+       var alph = map(diff, countDown, 0, 255, 0)
+
+       stroke(0, 0, 100, alph)
+
+
+   }
 
 }
