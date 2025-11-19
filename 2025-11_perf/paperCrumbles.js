@@ -36,7 +36,7 @@ function drawPaperCrumbles(spectrum, tapisser){
         
         var color = map(spectrum[s-1], 0, 255, 0, 100)
         
-        fill(color, 100, 80, 250)
+        fill(0, 0, 80, 250)
 
         push()
             translate(startX, startY)

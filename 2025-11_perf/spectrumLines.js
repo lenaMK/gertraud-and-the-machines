@@ -1,6 +1,7 @@
 function setupSpectrumLines(){
     background(0o0)
-     frameRate(60)
+    stroke(1)
+    frameRate(60)
 }
 
 

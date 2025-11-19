@@ -62,6 +62,7 @@ function setup() {
     tapisser = false
 
     scene = 1
+     setupJumpyPunchCard()
 } 
 
 
@@ -114,18 +115,13 @@ function keyPressed() {
     }
     else if (key === '5'){
         setupPerforatedScore()
-        console.log("perforated Score, " + new Date(Date.now()))
+        console.log(" VM perforated Score, " + new Date(Date.now()))
         scene = 5
     }
     else if (key === '6'){
         setupPerforatedScore()
-        console.log(" VM perforated Score, " + new Date(Date.now()))
-        scene = 6
-    }
-    else if (key === '7'){
-        setupPerforatedScore()
         console.log(" VM perforated disc, " + new Date(Date.now()))
-        scene = 7
+        scene = 6
     }
    
 
@@ -155,7 +151,9 @@ function keyPressed() {
 
 }
 
-
+function mouseClicked() {
+  console.log(spectrum)
+}
 
 function draw() {
     
@@ -181,12 +179,9 @@ function draw() {
         drawMovingPaperCrumbles(spectrum, nbBands)
     }
     else if (scene == 5){
-        drawPerforatedScore(spectrum)
-    }
-    else if (scene == 6){
         drawVMPerforatedScore(spectrum)
     }
-    else if (scene == 7){
+    else if (scene == 6){
         drawVMPerforatedDisc(spectrum)
     }
     

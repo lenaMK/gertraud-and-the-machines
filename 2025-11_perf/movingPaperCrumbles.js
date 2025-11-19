@@ -4,10 +4,15 @@ var shapes = []
 function setupMovingPaperCrumbles(){
     background(0,0,0)
     frameRate(60)
+    fill(0, 0, 80)
+    angleMode(DEGREES)
 }
 
 
 function buildShapes(nbBands){
+
+    rotate(45)
+
     //as many shapes as there are bands in the frequency
     for (var b = 0; b < nbBands; b++){
         var nbSides = random(3, 9)
