@@ -1,7 +1,14 @@
+var centralFocus 
+var focusX, focusY
+
 function setupSpectrumLines(){
     background(0o0)
     stroke(1)
     frameRate(60)
+
+    focusX = 50
+    focusY = 50
+    centralFocus = false
 }
 
 
@@ -10,14 +17,25 @@ function drawSpectrumLines(spectrum, nbBands, moveLineFocus){
     var selection = 4
     var margin = 10
 
+    var stepX = (windowWidth/2 - focusX) / 400 + 1
+    var stepY = (windowHeight/2 - focusY) / 400 +1
+
     if (moveLineFocus){
         if (!centralFocus){
-            focusX = windowWidth/2
-            focusY = windowHeight/3
+            console.log("LineFocus reaching for center")
+            focusX += stepX
+            focusY += stepY
+            
+        } else {
+            console.log("LineFocus moving randomly")
+            focusX += random (-12, 12)
+            focusY += random (-12, 12)
+        }
+
+        if (focusX >= windowWidth/2 && focusY >= windowHeight/3) {
             centralFocus = true
         }
-        focusX += random (-12, 12)
-        focusY += random (-12, 12)
+
     }
 
     for (var s = 1; s < nbBands / selection; s++){
