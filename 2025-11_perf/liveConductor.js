@@ -136,7 +136,7 @@ function keyPressed() {
 
 
     if (key === 's'){
-        console.log("Début de la fin, fade out pour scene 4")
+        console.log("Début de la fin, fade out pour scene 4, "+ new Date(Date.now()))
         debutDeLaFin = frameCount
 
         console.log("remember to save console output :) ")
