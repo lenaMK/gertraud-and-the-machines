@@ -138,17 +138,7 @@ function drawVMPerforatedDisc(spectrum){
     //start from the center of the screen
     translate(windowWidth/2, windowHeight/2)  
 
-    fill(0, 0, 30)
-    circle(0, 0, discRadius * 2 + 10)
-    fill(0, 0, 0)
-    circle(0, 0, discMargins * 2)
-
-    stroke(0, 0, 20)
-    strokeWeight(6)
-
-    rotate(-1)
-    line(discMargins + discInnerMargin, 0, discRadius, 0)
-    rotate(1)
+    
 
     // for each element in the history (ex 360 / discDensity = 90)
     for (var i = 0; i < 360/discDensity ; i++){
@@ -156,13 +146,14 @@ function drawVMPerforatedDisc(spectrum){
         //for each high value amongst the 32 "notes"
         if (hist[hist.length - i]){
             hist[hist.length - i].forEach(h => {
-            
-                //var color = map(h[0], 0, 255, 0, 100)
+                
+                if (random(0, 100) > 3){
+                     //var color = map(h[0], 0, 255, 0, 100)
                 //strokeWeight(1)
                 //stroke(0, 0, 100)
-                fill(0, 0, 0)
+                fill(0, 0, 70)
                 
-                var x = discMargins + (perforation + 6) * h[1] + discInnerMargin
+                var x = discMargins + (perforation + 50) * h[1] + discInnerMargin
                 var y = 0
                 
 
@@ -180,6 +171,8 @@ function drawVMPerforatedDisc(spectrum){
                     
 
                 endShape()
+                }
+               
                 
             })
 
