@@ -21,48 +21,11 @@ function getHighValues(spectrum, step){
     return highs
 }
 
-function drawPerforatedScore(spectrum){
-    background(0o0)
-    var highestValues = getHighValues(spectrum, 5)
-    
-    
-
-    if (hist.length >= scoreLength) 
-        hist.splice(0, 1)
-    
-    hist.push(highestValues)
-
-
-
-    for (var i = 0; i < hist.length; i++){
-        //console.log("height", windowHeight/spectrum.length * i)
-        //console.log("width", windowWidth/nbBands)
-        var xStep = windowWidth/scoreLength
-        
-        
-        var rectWidth = windowWidth/scoreLength - 30
-        var rectHeight = 30
-        var x = xStep * (hist.length - i)
-        
-
-        hist[i].forEach(h => {
-            var color = map(h[0], 0, 255, 0, 100)
-            stroke(0, 0, color)
-            fill(0, 0, 0)
-            var y = map(h[1], 0, 128, windowHeight-50, 10)
-            rect(x, y, rectWidth, rectHeight )
-
-        })
-    }
-
-}
-
-
 
 function drawVMPerforatedScore(spectrum){
     background(0o0)
     var highestValues = getHighValues(spectrum, 5)
-    randomIntensity = 2
+    randomIntensity = 50
 
     if (hist.length >= scoreLength) 
         hist.splice(0, 1)
@@ -72,20 +35,20 @@ function drawVMPerforatedScore(spectrum){
 
 
     for (var i = 0; i < hist.length; i++){
-        var xStep = windowWidth/scoreLength
+        var xStep = windowWidth / scoreLength
         
         
-        var rectWidth = windowWidth/scoreLength - 30
-        var rectHeight = 30
+
         var x = xStep * (hist.length - i)
         
 
         hist[i].forEach(h => {
-            var color = map(h[0], 0, 255, 0, 100)
-            strokeWeight(3)
-            stroke(0, 0, color)
+            var rectWidth = windowWidth/scoreLength - 30 + random(0, 100)
+            var rectHeight = map(h[0], 0, 255, 0, 500) + random(0, 10)
+            strokeWeight(2)
+            stroke(0, 0, 100)
             fill(0, 0, 0)
-            var y = map(h[1], 0, 128, windowHeight-50, 10)
+            var y = map(h[1], 0, 128, 10,windowHeight)
             //rect(x, y, rectWidth, rectHeight )
 
             beginShape()
